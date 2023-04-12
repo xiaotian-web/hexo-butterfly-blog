@@ -1,0 +1,486 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>字符集所占java字节数整理 | 小天的博客</title><meta name="author" content="小天"><meta name="copyright" content="小天"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="常用字符集占字节数码表整理   常用字符集 所占字节数 英文&#x2F;字节 中文&#x2F;字节 说明    ASCII 单字节(0x00-0x7F) 1 不支持中文 国际标准,ISO&#x2F;IEC 646   Latin1(别名ISO8859-1) 单字节(0x00-0xFF) 1 不支持中文 向下兼容ASCII,还包括西欧语言,希腊语,泰语,阿拉伯语,希伯来语   ANSI 单双字节(0x0000-0xFFFF)单字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符集所占java字节数整理">
+<meta property="og:url" content="http://example.com/2023/04/12/%E5%AD%97%E7%AC%A6%E9%9B%86%E6%89%80%E5%8D%A0java%E5%AD%97%E8%8A%82%E6%95%B0%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="小天的博客">
+<meta property="og:description" content="常用字符集占字节数码表整理   常用字符集 所占字节数 英文&#x2F;字节 中文&#x2F;字节 说明    ASCII 单字节(0x00-0x7F) 1 不支持中文 国际标准,ISO&#x2F;IEC 646   Latin1(别名ISO8859-1) 单字节(0x00-0xFF) 1 不支持中文 向下兼容ASCII,还包括西欧语言,希腊语,泰语,阿拉伯语,希伯来语   ANSI 单双字节(0x0000-0xFFFF)单字">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg">
+<meta property="article:published_time" content="2023-04-12T06:41:45.000Z">
+<meta property="article:modified_time" content="2023-04-12T07:24:01.399Z">
+<meta property="article:author" content="小天">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="BYTE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/12/%E5%AD%97%E7%AC%A6%E9%9B%86%E6%89%80%E5%8D%A0java%E5%AD%97%E8%8A%82%E6%95%B0%E6%95%B4%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 小天","link":"链接: ","source":"来源: 小天的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '字符集所占java字节数整理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-12 15:24:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小天的博客"><span class="site-name">小天的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">字符集所占java字节数整理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-12T06:41:45.000Z" title="发表于 2023-04-12 14:41:45">2023-04-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-12T07:24:01.399Z" title="更新于 2023-04-12 15:24:01">2023-04-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Other/">Other</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="字符集所占java字节数整理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="常用字符集占字节数码表整理"><a href="#常用字符集占字节数码表整理" class="headerlink" title="常用字符集占字节数码表整理"></a>常用字符集占字节数码表整理</h3><table>
+<thead>
+<tr>
+<th><strong>常用字符集</strong></th>
+<th><strong>所占字节数</strong></th>
+<th><strong>英文/字节</strong></th>
+<th><strong>中文/字节</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ASCII</td>
+<td>单字节(0x00-0x7F)</td>
+<td>1</td>
+<td>不支持中文</td>
+<td>国际标准,ISO/IEC 646</td>
+</tr>
+<tr>
+<td>Latin1(别名ISO8859-1)</td>
+<td>单字节(0x00-0xFF)</td>
+<td>1</td>
+<td>不支持中文</td>
+<td>向下兼容ASCII,还包括西欧语言,希腊语,泰语,阿拉伯语,希伯来语</td>
+</tr>
+<tr>
+<td>ANSI</td>
+<td>单双字节(0x0000-0xFFFF)单字节仅表示ASCII</td>
+<td>1</td>
+<td>2</td>
+<td>不是单一明确的字符编码,是对不同国家和地区不同编码的一个统称(如GB2312,GBK,BIG5,Shift_JS)</td>
+</tr>
+<tr>
+<td>GB2312</td>
+<td>单双字节(0x0000-0xFFFF) 单字节仅表示ASCII</td>
+<td>1</td>
+<td>2</td>
+<td>标准简体中文字符集,1980年发布,1981年5月实施,收录6763个汉字GB1300双字节(0x0000-0xFFFF)121993年发布,收录中国大陆、台湾、日本及韩国通用字符集的汉字，总共有20,902个.因为没有兼容GB2312,并没有得到广泛应用,如今已被废弃</td>
+</tr>
+<tr>
+<td>Big5</td>
+<td>双字节(0x0000-0xFFFF)</td>
+<td>1</td>
+<td>2</td>
+<td>大五码或五大码,共收录13060个汉字,是繁体中文编码</td>
+</tr>
+<tr>
+<td>GBK</td>
+<td>双字节(0x0000-0xFFFF)</td>
+<td>1</td>
+<td>2</td>
+<td>向下兼容GB2312,汉字内码扩展规范,只是作为技术规范,并非国家正式标准</td>
+</tr>
+<tr>
+<td>Unicode</td>
+<td>四字节(U+0000-U+10FFFF)</td>
+<td>4</td>
+<td>4</td>
+<td>万国码,统一码联盟在1991年发布,共分为17个平面,0号平面为BMP</td>
+</tr>
+<tr>
+<td>UCS、UCS-2、USC=4</td>
+<td>UCS-2(双字节)UCS-4(四字节)</td>
+<td>2、4</td>
+<td>2、4</td>
+<td>ISO/IEC 10646标准</td>
+</tr>
+<tr>
+<td>Utf-8（变长）</td>
+<td>1-4字节</td>
+<td>1</td>
+<td>3</td>
+<td>现在最常用的字符集</td>
+</tr>
+<tr>
+<td>Utf-16、UTF-32</td>
+<td>UTF-16(2、4字节),UTF-32(4字节)</td>
+<td>4</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>LE(little endian)、BE(big endian)、BOM(byte order mark)</td>
+<td>UTF-16和UTF-32 的大端字节序和小端字节序 BOM(UTF-8:EF BB BF;UTF-16 LE: FF FE;UTF-16 BE: FE FF;UTF-32 LE: FF FE 00 00;UTF-32 BE: 00 00 FE FF)</td>
+<td>无</td>
+<td>无</td>
+<td>LE和BE 双字节或四字节高地位排序 BOM 字节排序标记(window的软件一般都会有BOM,而其他系统默认都没有,window要兼容ANSI,防止出错)</td>
+</tr>
+<tr>
+<td>内码 外码 代码页</td>
+<td>代码页:GBK为936;UTF-8为65001</td>
+<td>无</td>
+<td>无</td>
+<td>内码指的是操作系统的字符编码;外码指的是用户从键盘上键入汉字所使用的汉字编码. 代码页:windows使用代码页来各个国家地区字符编码.</td>
+</tr>
+</tbody></table>
+<p>java 代码测试方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">stringGetBytes</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;a&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">b</span> <span class="operator">=</span> <span class="string">&quot;一&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">charset_ASCII</span> <span class="operator">=</span> <span class="string">&quot;ASCII&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">charset_Utf_8</span> <span class="operator">=</span> <span class="string">&quot;Utf-8&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">charset_Utf_16</span> <span class="operator">=</span> <span class="string">&quot;Utf-16&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">charset_GBK</span> <span class="operator">=</span> <span class="string">&quot;GBK&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">charset_ISO8859_1</span> <span class="operator">=</span> <span class="string">&quot;ISO8859-1&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">charset_Unicode</span> <span class="operator">=</span> <span class="string">&quot;Unicode&quot;</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        System.out.println(Arrays.toString(a.getBytes(charset_ASCII)));</span><br><span class="line">        System.out.println(a.getBytes(charset_ASCII).length);</span><br><span class="line">        System.out.println(Arrays.toString(b.getBytes(charset_ASCII)));</span><br><span class="line">        System.out.println(b.getBytes(charset_ASCII).length);</span><br><span class="line">        System.out.println(<span class="string">&quot;-----------------ASCII--------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(Arrays.toString(a.getBytes(charset_Utf_8)));</span><br><span class="line">        System.out.println(a.getBytes(charset_Utf_8).length);</span><br><span class="line">        System.out.println(Arrays.toString(b.getBytes(charset_Utf_8)));</span><br><span class="line">        System.out.println(b.getBytes(charset_Utf_8).length);</span><br><span class="line">        System.out.println(<span class="string">&quot;-----------------charset_Utf_8--------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(Arrays.toString(a.getBytes(charset_Utf_16)));</span><br><span class="line">        System.out.println(a.getBytes(charset_Utf_16).length);</span><br><span class="line">        System.out.println(Arrays.toString(b.getBytes(charset_Utf_16)));</span><br><span class="line">        System.out.println(b.getBytes(charset_Utf_16).length);</span><br><span class="line">        System.out.println(<span class="string">&quot;-----------------charset_Utf_16--------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(Arrays.toString(a.getBytes(charset_GBK)));</span><br><span class="line">        System.out.println(a.getBytes(charset_GBK).length);</span><br><span class="line">        System.out.println(Arrays.toString(b.getBytes(charset_GBK)));</span><br><span class="line">        System.out.println(b.getBytes(charset_GBK).length);</span><br><span class="line">        System.out.println(<span class="string">&quot;-----------------charset_GBK--------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(Arrays.toString(a.getBytes(charset_ISO8859_1)));</span><br><span class="line">        System.out.println(a.getBytes(charset_ISO8859_1).length);</span><br><span class="line">        System.out.println(Arrays.toString(b.getBytes(charset_ISO8859_1)));</span><br><span class="line">        System.out.println(b.getBytes(charset_ISO8859_1).length);</span><br><span class="line">        System.out.println(<span class="string">&quot;-----------------charset_ISO8859_1--------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(Arrays.toString(a.getBytes(charset_Unicode)));</span><br><span class="line">        System.out.println(a.getBytes(charset_Unicode).length);</span><br><span class="line">        System.out.println(Arrays.toString(b.getBytes(charset_Unicode)));</span><br><span class="line">        System.out.println(b.getBytes(charset_Unicode).length);</span><br><span class="line">        System.out.println(<span class="string">&quot;-----------------charset_Unicode--------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如图:<br><img src="/2023/04/12/%E5%AD%97%E7%AC%A6%E9%9B%86%E6%89%80%E5%8D%A0java%E5%AD%97%E8%8A%82%E6%95%B0%E6%95%B4%E7%90%86/img.png"></p>
+<p>将b的字面值替换为“䶮”,运行结果如下图:<br><img src="/2023/04/12/%E5%AD%97%E7%AC%A6%E9%9B%86%E6%89%80%E5%8D%A0java%E5%AD%97%E8%8A%82%E6%95%B0%E6%95%B4%E7%90%86/img_1.png"><br>将a的字面值替换为“A”,将b的字面量替换为“天”,运行结果如下图:<br><img src="/2023/04/12/%E5%AD%97%E7%AC%A6%E9%9B%86%E6%89%80%E5%8D%A0java%E5%AD%97%E8%8A%82%E6%95%B0%E6%95%B4%E7%90%86/img_2.png"></p>
+<h3 id="windows活动页代码和字符集的对应关系"><a href="#windows活动页代码和字符集的对应关系" class="headerlink" title="windows活动页代码和字符集的对应关系"></a>windows活动页代码和字符集的对应关系</h3><table>
+<thead>
+<tr>
+<th>活动页代码(active code page)</th>
+<th>字符集</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>437</td>
+<td>美国</td>
+</tr>
+<tr>
+<td>708</td>
+<td>阿拉伯文(ASMO 708)</td>
+</tr>
+<tr>
+<td>720</td>
+<td>阿拉伯文(DOS)</td>
+</tr>
+<tr>
+<td>850</td>
+<td>多语言(拉丁文 I)</td>
+</tr>
+<tr>
+<td>852</td>
+<td>中欧(DOS) - 斯拉夫语(拉丁文 II)</td>
+</tr>
+<tr>
+<td>855</td>
+<td>西里尔文(俄语)</td>
+</tr>
+<tr>
+<td>857</td>
+<td>土耳其语</td>
+</tr>
+<tr>
+<td>860</td>
+<td>葡萄牙语</td>
+</tr>
+<tr>
+<td>861</td>
+<td>冰岛语</td>
+</tr>
+<tr>
+<td>862</td>
+<td>希伯来文(DOS)</td>
+</tr>
+<tr>
+<td>863</td>
+<td>加拿大 - 法语</td>
+</tr>
+<tr>
+<td>865</td>
+<td>日耳曼语</td>
+</tr>
+<tr>
+<td>866</td>
+<td>俄语 - 西里尔文(DOS)</td>
+</tr>
+<tr>
+<td>869</td>
+<td>现代希腊语</td>
+</tr>
+<tr>
+<td>874</td>
+<td>泰文(Windows)</td>
+</tr>
+<tr>
+<td>932</td>
+<td>日文(Shift-JIS)</td>
+</tr>
+<tr>
+<td>936</td>
+<td>中国 - 简体中文(GB2312)</td>
+</tr>
+<tr>
+<td>949</td>
+<td>韩文</td>
+</tr>
+<tr>
+<td>950</td>
+<td>繁体中文(Big5)</td>
+</tr>
+<tr>
+<td>1200</td>
+<td>Unicode</td>
+</tr>
+<tr>
+<td>1201</td>
+<td>Unicode (Big-Endian)</td>
+</tr>
+<tr>
+<td>1250</td>
+<td>中欧(Windows)</td>
+</tr>
+<tr>
+<td>1251</td>
+<td>西里尔文(Windows)</td>
+</tr>
+<tr>
+<td>1252</td>
+<td>西欧(Windows)</td>
+</tr>
+<tr>
+<td>1253</td>
+<td>希腊文(Windows)</td>
+</tr>
+<tr>
+<td>1254</td>
+<td>土耳其文(Windows)</td>
+</tr>
+<tr>
+<td>1255</td>
+<td>希伯来文(Windows)</td>
+</tr>
+<tr>
+<td>1256</td>
+<td>阿拉伯文(Windows)</td>
+</tr>
+<tr>
+<td>1257</td>
+<td>波罗的海文(Windows)</td>
+</tr>
+<tr>
+<td>1258</td>
+<td>越南文(Windows)</td>
+</tr>
+<tr>
+<td>20866</td>
+<td>西里尔文(KOI8-R)</td>
+</tr>
+<tr>
+<td>21866</td>
+<td>西里尔文(KOI8-U)</td>
+</tr>
+<tr>
+<td>28592</td>
+<td>中欧(ISO)</td>
+</tr>
+<tr>
+<td>28593</td>
+<td>拉丁文 3 (ISO)</td>
+</tr>
+<tr>
+<td>28594</td>
+<td>波罗的海文(ISO)</td>
+</tr>
+<tr>
+<td>28595</td>
+<td>西里尔文(ISO)</td>
+</tr>
+<tr>
+<td>28596</td>
+<td>阿拉伯文(ISO)</td>
+</tr>
+<tr>
+<td>28597</td>
+<td>希腊文(ISO)</td>
+</tr>
+<tr>
+<td>28598</td>
+<td>希伯来文(ISO-Visual)</td>
+</tr>
+<tr>
+<td>38598</td>
+<td>希伯来文(ISO-Logical)</td>
+</tr>
+<tr>
+<td>50000</td>
+<td>用户定义的</td>
+</tr>
+<tr>
+<td>50001</td>
+<td>自动选择</td>
+</tr>
+<tr>
+<td>50220</td>
+<td>日文(JIS)</td>
+</tr>
+<tr>
+<td>50221</td>
+<td>日文(JIS-允许一个字节的片假名)</td>
+</tr>
+<tr>
+<td>50222</td>
+<td>日文(JIS-允许一个字节的片假名-SO/SI)</td>
+</tr>
+<tr>
+<td>50225</td>
+<td>韩文(ISO)</td>
+</tr>
+<tr>
+<td>50932</td>
+<td>日文(自动选择)</td>
+</tr>
+<tr>
+<td>50949</td>
+<td>韩文(自动选择)</td>
+</tr>
+<tr>
+<td>51932</td>
+<td>日文(EUC)</td>
+</tr>
+<tr>
+<td>51949</td>
+<td>韩文(EUC)</td>
+</tr>
+<tr>
+<td>52936</td>
+<td>简体中文(HZ)</td>
+</tr>
+<tr>
+<td>65000</td>
+<td>Unicode (UTF-7)</td>
+</tr>
+<tr>
+<td>65001</td>
+<td>Unicode (UTF-8)</td>
+</tr>
+</tbody></table>
+<h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客:"></a>参考博客:</h3><p>不错的博客,整理概括编码<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/K346K346/article/details/52312953">https://blog.csdn.net/K346K346/article/details/52312953</a><br>GBK、GB2312、ISO-8859-1的区别(mac系统,file指令识别不了的文件编码会显示ISO-8859-1格式)<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/x_wukong/p/3675832.html">https://www.cnblogs.com/x_wukong/p/3675832.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">小天</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/12/%E5%AD%97%E7%AC%A6%E9%9B%86%E6%89%80%E5%8D%A0java%E5%AD%97%E8%8A%82%E6%95%B0%E6%95%B4%E7%90%86/">http://example.com/2023/04/12/%E5%AD%97%E7%AC%A6%E9%9B%86%E6%89%80%E5%8D%A0java%E5%AD%97%E8%8A%82%E6%95%B0%E6%95%B4%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">小天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JAVA/">JAVA</a><a class="post-meta__tags" href="/tags/BYTE/">BYTE</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/12/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%9B%B8%E5%85%B3/" title="位运算相关"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">位运算相关</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/12/String/" title="String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">String</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/04/10/JVM%E4%BB%8B%E7%BB%8D/" title="JVM介绍"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">JVM介绍</div></div></a></div><div><a href="/2023/04/11/Mybatis%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90Springboot%E9%A1%B9%E7%9B%AE/" title="Mybatis框架集成Springboot项目"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-11</div><div class="title">Mybatis框架集成Springboot项目</div></div></a></div><div><a href="/2023/04/11/Stream/" title="Stream"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-11</div><div class="title">Stream</div></div></a></div><div><a href="/2023/04/12/String/" title="String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-12</div><div class="title">String</div></div></a></div><div><a href="/2023/04/10/java-IO/" title="java-IO"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">java-IO</div></div></a></div><div><a href="/2023/04/10/java-NIO/" title="java-NIO"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">java-NIO</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小天</div><div class="author-info__description">记录工作中日常遇到及解决问题的博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6%E9%9B%86%E5%8D%A0%E5%AD%97%E8%8A%82%E6%95%B0%E7%A0%81%E8%A1%A8%E6%95%B4%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">常用字符集占字节数码表整理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#windows%E6%B4%BB%E5%8A%A8%E9%A1%B5%E4%BB%A3%E7%A0%81%E5%92%8C%E5%AD%97%E7%AC%A6%E9%9B%86%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="toc-number">2.</span> <span class="toc-text">windows活动页代码和字符集的对应关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2"><span class="toc-number">3.</span> <span class="toc-text">参考博客:</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/12/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%9B%B8%E5%85%B3/" title="位运算相关">位运算相关</a><time datetime="2023-04-12T07:25:05.000Z" title="发表于 2023-04-12 15:25:05">2023-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/12/%E5%AD%97%E7%AC%A6%E9%9B%86%E6%89%80%E5%8D%A0java%E5%AD%97%E8%8A%82%E6%95%B0%E6%95%B4%E7%90%86/" title="字符集所占java字节数整理">字符集所占java字节数整理</a><time datetime="2023-04-12T06:41:45.000Z" title="发表于 2023-04-12 14:41:45">2023-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/12/String/" title="String">String</a><time datetime="2023-04-12T06:17:36.000Z" title="发表于 2023-04-12 14:17:36">2023-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/11/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="多线程">多线程</a><time datetime="2023-04-11T15:08:16.000Z" title="发表于 2023-04-11 23:08:16">2023-04-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/11/Stream/" title="Stream">Stream</a><time datetime="2023-04-11T14:51:06.000Z" title="发表于 2023-04-11 22:51:06">2023-04-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By 小天</div><div class="footer_custom_text">欢迎来到我的博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
