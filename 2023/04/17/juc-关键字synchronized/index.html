@@ -1,0 +1,423 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>juc-关键字synchronized | 小天的博客</title><meta name="author" content="小天"><meta name="copyright" content="小天"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="synchronized使用方式修饰类对象 修饰对象 修饰静态成员方法 修饰成员方法 总结 java的synchronized关键字是跟对象一起配合使用的,表示给这个对象加锁,加锁对象作用的代码块只能获取锁对象的线程使用,其他线程运行到该代码块,会尝试获取该对象的锁,如果该对象已经被其他线程加锁了,其他线程只能阻塞.当获取锁对象的线程执行完代码块后,它会释放锁对象,然后唤醒在获取该锁对象的所有线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="juc-关键字synchronized">
+<meta property="og:url" content="http://example.com/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/index.html">
+<meta property="og:site_name" content="小天的博客">
+<meta property="og:description" content="synchronized使用方式修饰类对象 修饰对象 修饰静态成员方法 修饰成员方法 总结 java的synchronized关键字是跟对象一起配合使用的,表示给这个对象加锁,加锁对象作用的代码块只能获取锁对象的线程使用,其他线程运行到该代码块,会尝试获取该对象的锁,如果该对象已经被其他线程加锁了,其他线程只能阻塞.当获取锁对象的线程执行完代码块后,它会释放锁对象,然后唤醒在获取该锁对象的所有线程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg">
+<meta property="article:published_time" content="2023-04-17T14:00:36.000Z">
+<meta property="article:modified_time" content="2023-04-17T14:31:29.653Z">
+<meta property="article:author" content="小天">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="JUC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 小天","link":"链接: ","source":"来源: 小天的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'juc-关键字synchronized',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-17 22:31:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小天的博客"><span class="site-name">小天的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">juc-关键字synchronized</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-17T14:00:36.000Z" title="发表于 2023-04-17 22:00:36">2023-04-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-17T14:31:29.653Z" title="更新于 2023-04-17 22:31:29">2023-04-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="juc-关键字synchronized"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="synchronized使用方式"><a href="#synchronized使用方式" class="headerlink" title="synchronized使用方式"></a>synchronized使用方式</h3><h4 id="修饰类对象"><a href="#修饰类对象" class="headerlink" title="修饰类对象"></a>修饰类对象</h4><p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE317933f4d7c549292a50695d30713657.png"></p>
+<h4 id="修饰对象"><a href="#修饰对象" class="headerlink" title="修饰对象"></a>修饰对象</h4><p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE086321879f3d9a6774f43103b56e8c26.png"></p>
+<h4 id="修饰静态成员方法"><a href="#修饰静态成员方法" class="headerlink" title="修饰静态成员方法"></a>修饰静态成员方法</h4><p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEb44da2d4dc4eb0fcfa0748f984863970.png"></p>
+<h4 id="修饰成员方法"><a href="#修饰成员方法" class="headerlink" title="修饰成员方法"></a>修饰成员方法</h4><p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE3f38c77dca6cd17bffee52ab1ac4694e.png"></p>
+<p>总结</p>
+<p>java的synchronized关键字是跟对象一起配合使用的,表示给这个对象加锁,加锁对象作用的代码块只能获取锁对象的线程使用,其他线程运行到该代码块,会尝试获取该对象的锁,如果该对象已经被其他线程加锁了,其他线程只能阻塞.当获取锁对象的线程执行完代码块后,它会释放锁对象,然后唤醒在获取该锁对象的所有线程,他们会再竞争获取对象锁资源.获取到对象锁资源的线程会执行代码块,没有获取到对象锁资源的会继续阻塞,等待获取对象锁资源的线程执行完代码块将其再次唤醒.</p>
+<h4 id="synchronized修饰后对应的字节码"><a href="#synchronized修饰后对应的字节码" class="headerlink" title="synchronized修饰后对应的字节码"></a>synchronized修饰后对应的字节码</h4><p>1.在代码块里面修饰对应的就是monitorenter和monitorexit分别为获取对象锁和释放对象锁,如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEa3c083450c925c6e4a21245a0cdffe5f.png"></p>
+<p>2.在方法上修饰对应的就是访问修饰符,如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE16ff140cb5595278515ee6213e466bc8.png"></p>
+<p>Access flags对照表见《class文件结构》第8点方法,方法的静态修饰符static为0x0020</p>
+<h3 id="JVM对synchronized的优化"><a href="#JVM对synchronized的优化" class="headerlink" title="JVM对synchronized的优化"></a>JVM对synchronized的优化</h3><p>java的Hotspot虚拟机的对象头主要包括两部分:Mark Word(标记字段)、Klass Pointer(类型指针)</p>
+<p>32位系统中:</p>
+<p>Mark Word = 4 bytes = 32 bits，对象头 = 8 bytes = 64 bits；</p>
+<p>64位系统中:</p>
+<p>Mark Word = 8 bytes = 64 bits ，对象头 = 16 bytes = 128bits；</p>
+<p>Mark Word最后3位或最后两位对应分别对应锁的状态</p>
+<p>正常-&gt;(001)偏向锁(101)-&gt;轻量级锁(00)-&gt;重量级锁(10)</p>
+<h3 id="java对象头结构"><a href="#java对象头结构" class="headerlink" title="java对象头结构"></a>java对象头结构</h3><p>32位结构</p>
+<table>
+<thead>
+<tr>
+<th>锁状态</th>
+<th>25bit(对象的hashcode)</th>
+<th></th>
+<th>4bit(对象分代年龄)</th>
+<th>1bit(是否是偏向锁)</th>
+<th>2bit(锁标志位)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>23bit(线程ID)</td>
+<td>2bit(Epoch)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>无锁状态(Normal)</td>
+<td>对象hashcode、对象分代年龄</td>
+<td></td>
+<td></td>
+<td></td>
+<td>01</td>
+</tr>
+<tr>
+<td>轻量级锁(Lightweight Locked)</td>
+<td>指向锁记录(Lock Record)的地址</td>
+<td></td>
+<td></td>
+<td></td>
+<td>00</td>
+</tr>
+<tr>
+<td>重量级锁(Heavyweight Locked)</td>
+<td>指向重量级锁(Monitor)的地址</td>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>GC标记(Marked for GC)</td>
+<td>空</td>
+<td></td>
+<td></td>
+<td></td>
+<td>11</td>
+</tr>
+<tr>
+<td>偏向锁(Biased)</td>
+<td>线程ID、Epoch、对象分代年龄、偏向锁标志</td>
+<td></td>
+<td></td>
+<td></td>
+<td>01</td>
+</tr>
+</tbody></table>
+<p>64位结构</p>
+<table>
+<thead>
+<tr>
+<th>锁状态</th>
+<th>25bit(未使用的)</th>
+<th>31(哈希值)</th>
+<th>1bit(未使用的)</th>
+<th>4bit(对象分代年龄)</th>
+<th>1bit(是否是偏向锁)</th>
+<th>2bit(锁标志位)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>54bit(线程ID)</td>
+<td>2bit(Epoch)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>无锁状态(Normal)</td>
+<td>对象hashcode、对象分代年龄</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>01</td>
+</tr>
+<tr>
+<td>轻量级锁(Lightweight Locked)</td>
+<td>指向锁记录(Lock Record)的地址</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>00</td>
+</tr>
+<tr>
+<td>重量级锁(Heavyweight Locked)</td>
+<td>指向重量级锁(Monitor)的地址</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>GC标记(Marked for GC)</td>
+<td>空</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>11</td>
+</tr>
+<tr>
+<td>偏向锁(Biased)</td>
+<td>线程ID、Epoch、对象分代年龄、偏向锁标志</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>01</td>
+</tr>
+</tbody></table>
+<p>java线程栈中Lock Record结构</p>
+<table>
+<thead>
+<tr>
+<th>Lock Record</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Owner</td>
+<td>初始时为NULL表示当前没有任何线程拥有该monitor record，当线程成功拥有该锁后保存线程唯一标识，当锁被释放时又设置为NULL；</td>
+</tr>
+<tr>
+<td>EntryQ</td>
+<td>关联一个系统互斥锁（semaphore），阻塞所有试图锁住monitor record失败的线程；</td>
+</tr>
+<tr>
+<td>RcThis</td>
+<td>表示blocked或waiting在该monitor record上的所有线程的个数；</td>
+</tr>
+<tr>
+<td>Nest</td>
+<td>用来实现 重入锁的计数；</td>
+</tr>
+<tr>
+<td>HashCode</td>
+<td>保存从对象头拷贝过来的HashCode值（可能还包含GC age）。</td>
+</tr>
+<tr>
+<td>Candidate</td>
+<td>用来避免不必要的阻塞或等待线程唤醒，因为每一次只有一个线程能够成功拥有锁，如果每次前一个释放锁的线程唤醒所有正在阻塞或等待的线程，会引起不必要的上下文切换（从阻塞到就绪然后因为竞争锁失败又被阻塞）从而导致性能严重下降。Candidate只有两种可能的值0表示没有需要唤醒的线程1表示要唤醒一个继任线程来竞争锁。</td>
+</tr>
+</tbody></table>
+<p>Monitor对象(C++)实现(参考源码文件url: <a target="_blank" rel="noopener" href="https://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/69087d08d473/src/share/vm/runtime">https://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/69087d08d473/src/share/vm/runtime</a>)</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE33ea752b94b0e1b44d4bfdd1d496825d.png"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ObjectMonitor</span>() &#123;</span><br><span class="line">    _header       = <span class="literal">NULL</span>;</span><br><span class="line">    _count        = <span class="number">0</span>; <span class="comment">// 记录个数</span></span><br><span class="line">    _waiters      = <span class="number">0</span>;</span><br><span class="line">    _recursions   = <span class="number">0</span>;</span><br><span class="line">    _object       = <span class="literal">NULL</span>;</span><br><span class="line">    _owner        = <span class="literal">NULL</span>;</span><br><span class="line">    _WaitSet      = <span class="literal">NULL</span>; <span class="comment">// 处于wait状态的线程，会被加入到_WaitSet</span></span><br><span class="line">    _WaitSetLock  = <span class="number">0</span> ;</span><br><span class="line">    _Responsible  = <span class="literal">NULL</span> ;</span><br><span class="line">    _succ         = <span class="literal">NULL</span> ;</span><br><span class="line">    _cxq          = <span class="literal">NULL</span> ;</span><br><span class="line">    FreeNext      = <span class="literal">NULL</span> ;</span><br><span class="line">    _EntryList    = <span class="literal">NULL</span> ; <span class="comment">// 处于等待锁block状态的线程，会被加入到该列表</span></span><br><span class="line">    _SpinFreq     = <span class="number">0</span> ;</span><br><span class="line">    _SpinClock    = <span class="number">0</span> ;</span><br><span class="line">    OwnerIsThread = <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="线程对象在Monitor的流转步骤图"><a href="#线程对象在Monitor的流转步骤图" class="headerlink" title="线程对象在Monitor的流转步骤图:"></a>线程对象在Monitor的流转步骤图:</h3><p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE89c7be4644cdc4aa52f6d1ae0880c695.png"></p>
+<p>jdk1.6以后对synchronized执行方式的优化</p>
+<h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- 场景:</span><br><span class="line">当JVM关闭偏向锁(默认是开启的,采用-XX:-UseBiasedLocking)功能或者多个线程竞争偏向锁导致偏向锁升级为轻量级锁,则会尝试获取轻量级锁.</span><br><span class="line">## 获取锁步骤</span><br><span class="line">1.判断当前对象是否处于无锁状态(hashcode、0、01),若是则JVM首先将在当前线程的栈帧中建立一个名为锁记录(Lock Record)的空间,用于存储锁对象目前的Mark Word的拷贝(官方把这份拷贝加了一个Displaced前缀,即Displaced Mark Word);否则执行步骤3</span><br><span class="line">2.JVM利用CAS操作尝试将对象的Mark Word更新位指向Lock Record的指针,如果成功表示竞争到锁,则将锁标志位变成00(表示该对象处于轻量级锁状态),执行同步操作;如果失败则执行步骤3</span><br><span class="line">3.判断当前对象的Mark Word是否指向当前线程的栈帧,如果是则表示当前线程已经持有当前对象的锁,则直接执行同步代码块;否则只能说明该锁对象已经被其他线程抢占了,这时轻量级锁需要膨胀位重量级锁,锁标志位变成10,后面等待的线程将会进入阻塞状态</span><br><span class="line">## 释放锁</span><br><span class="line">1.取出在获取轻量级锁保存在Displaced Mark Word中的数据;</span><br><span class="line">2.用CAS操作将取出的数据替换当前对象的Mark Word中,如果成功,则说明释放锁成功,否则执行3;</span><br><span class="line">3.如果CAS操作替换失败,说明有其他线程尝试获取该锁,则需要在释放锁的同时需要唤醒被挂起的线程.</span><br><span class="line"></span><br><span class="line">-- 总计:</span><br><span class="line">对于轻量级锁,其性能提升的依据是&quot;对于绝大部分的锁,在整个生命周期内都是不会存在竞争的&quot;,如果打破这个一句则除了互斥的开销外,还有额外的CAS操作,因此在有多线程竞争的情况下,轻量级锁比重量级锁更慢.</span><br></pre></td></tr></table></figure>
+
+<p>流程图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEc304a232fe8392e43309629b0542d26d.png"></p>
+<h4 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-- 场景:</span><br><span class="line">在没有多线程竞争的情况下,系统默认(-XX:+UseBiasedLocking)会采用加偏向锁的方式来获取锁.</span><br><span class="line">## 获取锁步骤</span><br><span class="line">1.检测Mark Word是否为可偏向状态,及是否为偏向锁1,锁标识位是否为01,如果不为偏向锁标识不为1,则走轻量级锁获取锁流程</span><br><span class="line">2.如果为可偏向状态,则判断锁对象的线程是否为当前线程,如果是,则直接走步骤5,否则执行步骤3</span><br><span class="line">3.如果锁对象的Mark Word线程id不为当前线程id,如果Mark Word线程id为空,则直接走CAS操作竞争锁,如果竞争成功,对象锁的Mark Word更新为当前线程的id,然后直接走步骤5.否则走步骤4;如果Mark Word线程id不为空,则直接走轻量级锁流程,并将重偏向的记录+1,如果默认类对象阈值累计达到了20且未超过规定间隔时间,后续将走批量重偏向流程,则直接走CAS操作竞争锁,如果竞争成功,对象锁的Mark Word更新为当前线程的id,然后直接走步骤5.否则走步骤4.</span><br><span class="line">4.通过CAS竞争锁失败,证明当前存在多线程竞争的情况,当到达全局安全点,获得偏向锁的线程被挂起,偏向锁升级为轻量级锁,然后阻被阻塞在安全点的线程继续往下执行同步代码块.</span><br><span class="line">5.执行同步代码块</span><br><span class="line">6.特别说明如果该对象类锁发生二次重偏向的累计值超过默认40且未超过规定间隔时间,后续创建锁的类对象的对象默认为正常对象后续将不为进行获取偏向锁的流程</span><br><span class="line">## 释放锁步骤</span><br><span class="line">1.暂停拥有偏向锁的线程,判断锁对象是否还处于被锁定状态</span><br><span class="line">2.撤销偏向锁,恢复到无锁状态01或轻量级锁的状态</span><br><span class="line"></span><br><span class="line">总结:</span><br><span class="line">引入偏向锁主要目的是:为了在无多线程竞争的情况下尽量减少不必要的轻量级锁执行.因为轻量级锁的加锁解锁操作是需要依赖多次CAS原子指令的.因为偏向锁只需检查偏向锁、锁标识以及ThreadId即可.</span><br><span class="line">偏向锁的释放采用了一种只有竞争才会释放锁的机制,线程不会主动去释放偏向锁,需要等待其他线程来竞争.偏向锁的撤销需要等待全局安全点.(这个时间点上没有正在执行的代码)</span><br></pre></td></tr></table></figure>
+
+<p>可使用 java -XX:+PrintFlagsFinal -version |grep Biased 查看JVM相关偏向锁的默认配置,如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE9b63cd6b666f00d2272debc6bd805103.png"></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">##参数解析</span><br><span class="line">1.UseBiasedLocking :是否开启偏向锁设置(-XX:[+/-]UseBiasedLocking)</span><br><span class="line">2.TraceBiasedLocking :是否开启偏向锁的日志跟踪(-XX:[+/-]TraceBiasedLocking)</span><br><span class="line">3.BiasedLockingStartupDelay :偏向锁启动的延迟时间(-XX:BiasedLockingStartupDelay=4000(时间单位毫秒)))</span><br><span class="line">4.BiasedLockingDecayTime :最近该类两次偏向锁使用的间隔时间超过该时间,重偏向锁和撤销偏向锁的阈值计数变量都将清零(-XX:BiasedLockingDecayTime=25000(时间单位毫秒)))</span><br><span class="line">5.BiasedLockingBulkRebiasThreshold :批量重偏向的阈值.未到达该阈值时,出现其他线程竞争该对象时,会出现锁撤销或升级为轻量级锁;达到或者超过该阈值时,出现其他线程竞争该对象时,会出现批量重偏向(之后的对象会直接替换为竞争线程的对象id)(-XX:BiasedLockingBulkRebiasThreshold=20);</span><br><span class="line">6.BiasedLockingBulkRevokeThreshold :批量撤销的阈值.未达到该阈值时,直接走上面批量重偏向的逻辑.到达该阈值时,直接走轻量级锁的逻辑(-XX:BiasedLockingBulkRevokeThreshold=40)</span><br><span class="line">特别说明:3、4、5、6的作用单元是单个类的锁</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">打印对象头地址需要依赖openjdk的jar,pom如下</span><br><span class="line">&lt;!-- 查看内存布局--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.openjdk.jol&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jol-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;0.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">使用下面代码做对象头的打印输出</span><br><span class="line">ClassLayout.parseInstance(object).toPrintable()</span><br></pre></td></tr></table></figure>
+<h4 id="测试验证"><a href="#测试验证" class="headerlink" title="测试验证"></a>测试验证</h4><p>参数1验证执行结果,如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE8f17e4131af8cce9dd953738b81fe37c.png"></p>
+<p>参数2验证执行结果:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEa1257200594cd1276220b5bf2a98eda2.png"></p>
+<p>参数3验证执行结果:</p>
+<p>1.休眠1s的执行结果:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEf41176a20ac291740eec27195e9c65c9.png"></p>
+<p>2.调整参数设置为1s的执行结果:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEa31fd81dd26d729cb77b0ce6511d3f1e.png"></p>
+<p>参数5验证执行结果:</p>
+<p>阈值未调整前,t2线程加的都是轻量级锁,因为批量偏向锁的默认阈值为20,如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE8b6a6af52dca497894d76f64012b6f2d.png"></p>
+<p>将阈值调成5(-XX:BiasedLockingBulkRebiasThreshold=5),t2线程在达到阈值时,加的还是偏向锁,直接把锁对象的线程id更新为t2的线程id,执行结果如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE624ce59939d6fcc0a5933bc6ed23a56d.png"></p>
+<p>参数6验证执行结果:</p>
+<p>阈值未调整前,主线程创建的对象还是未默认偏向锁的对象(因为阈值为40),现在测试类中二次批量重偏向只跑了11次,如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE76780d8327895c9cef67b9762a0fc919.png"></p>
+<p>将阈值调成10(-XX:BiasedLockingBulkRevokeThreshold=10),累计二次重偏向达到10次时,新创建出锁对象默认就没有偏向锁了,如图</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEccb1db6866802662ab1a33136cafd0bb.png"></p>
+<p>参数4验证执行结果:</p>
+<p>该参数为默认对象锁批量重偏向和批量重撤销偏向的统计间隔时间,超过则会清零重新统计,默认阈值为25秒,每个线程的间隔时间会休眠4秒,线程3每个工作任务的间隔为0.24秒,批量重偏向的阈值为6,批量撤销偏向锁为10,所以将间隔时间调整成6秒(-XX:BiasedLockingDecayTime=6000),执行结果如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEafaf3c662600c8b8ed4b198e6ee41da5.png"></p>
+<h4 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JVM中JIT编译会默认开启锁消除的优化(-XX:+EliminateLocks),条件为如果加锁对象没有逃逸自己的方法内部,编译器会默认将加锁块进行锁消除.通过</span><br></pre></td></tr></table></figure>
+
+<p>可使用 java -XX:+PrintFlagsFinal -version |grep EliminateLocks 查看JVM相关偏向锁的默认配置,如图:</p>
+<p>该测试需要使用JMH来进行代码块的测试,后面再补充例子说明.</p>
+<h4 id="锁的自旋"><a href="#锁的自旋" class="headerlink" title="锁的自旋"></a>锁的自旋</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">线程的阻塞和唤醒需要CPU从用户态转换为核心态,频繁的阻塞和唤醒对于CPU来说是一件负担很重的工作.为了减少短时间内的线程阻塞和唤醒,JVM让竞争获取锁失败的线程进行自旋等待(通过-XX:+UseSpinning参数进行设置).如果超过了自旋等待的次数(默认为10次,通过-XX:preBlockSpin=10参数进行设置)(备注:jdk8的这两个设置参数都已不存在),锁对象膨胀为重量级锁,线程进入EntryList进行等待.jdk1.6引入了适应性自旋锁,它是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定.</span><br></pre></td></tr></table></figure>
+
+<p>jdk8和jdk6对应默认参数的配置情况,通过java -XX:+PrintFlagsFinal -version | findStr Spin指令进行查看,如图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCEb3033828348f685d6e4f40e2395af609.png"></p>
+<h4 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">重量级锁是通过锁对象内部的一个叫做Monitor(监视器)来实现的.但是监视器本质又是依赖于底层操作系统的Mute Lock来实现的.而操作系统实现线程之间的切换这就需要从用户态转换到核心态,这个成本非常高,状态之间的转换需要相对较长的时间.</span><br><span class="line"></span><br><span class="line">Monitor对象是由C++实现的.包含两个对象_WaitSet和_EntryList,多个线程竞争对象锁的时候,未竞争到的线程会进入到_EntryList中阻塞等待,线程状态为(Blocked),如果已进入到同步代码块的线程发现执行条件不满足,它可以执行wait(等待)方法,执行后该线程会进入到_WaitSet中,同时把_Owner和_count进行清空,允许在_EntryList的线程继续去竞争获取对象锁,进行到对象锁的线程会将_Owner设置为自己线程的指针同时_count进行+1.</span><br></pre></td></tr></table></figure>
+
+<p>测试类代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> per.guc.gucproject.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test12</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            log.debug(<span class="string">&quot;t1 尝试获取锁&quot;</span>);</span><br><span class="line">            <span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">                log.debug(<span class="string">&quot;t1 获取锁&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">                    log.debug(<span class="string">&quot;t1 条件未满足，进入了等待&quot;</span>);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        lock.wait();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    log.debug(<span class="string">&quot;t1 被唤醒，继续执行&quot;</span>);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            log.debug(<span class="string">&quot;t1 执行完成&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">            log.debug(<span class="string">&quot;t2 尝试获取锁&quot;</span>);</span><br><span class="line">            <span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">                log.debug(<span class="string">&quot;t2 获取锁&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">                    log.debug(<span class="string">&quot;t2 再次获取锁&quot;</span>);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            log.debug(<span class="string">&quot;t2 执行完成&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">500</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">        t2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            t2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">        log.debug(<span class="string">&quot;唤醒t1线程&quot;</span>);</span><br><span class="line">        <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">            lock.notify();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行结果如下图:</p>
+<p><img src="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/WEBRESOURCE8b023220f69946172877ea650616e47c.png"></p>
+<h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客:"></a>参考博客:</h3><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/54565422">https://www.zhihu.com/question/54565422</a>  –博主写的很细，具体细节还待理解</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_31865983/article/details/105003612">https://blog.csdn.net/qq_31865983/article/details/105003612</a> –偏向锁源码解析参考博客</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903928681742344">https://juejin.cn/post/6844903928681742344</a>  –偏向锁解析流程参考博客</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_16268979/article/details/124285921">https://blog.csdn.net/qq_16268979/article/details/124285921</a>  –偏向锁升级说明博客</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhouwangwang/p/13763887.html">https://www.cnblogs.com/zhouwangwang/p/13763887.html</a> –java对象头说明</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hooong/p/14871438.html">https://www.cnblogs.com/hooong/p/14871438.html</a> –synchronized锁升级过程说明</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/javazejian/article/details/72828483">https://blog.csdn.net/javazejian/article/details/72828483</a> –synchronized实现原理</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903640197513230">https://juejin.cn/post/6844903640197513230</a> –synchronized实现原理</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/69087d08d473/src/share/vm/runtime">https://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/69087d08d473/src/share/vm/runtime</a>  –hotspot虚拟机源码url(重要)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/minikobe/p/12123065.html">https://www.cnblogs.com/minikobe/p/12123065.html</a> –synchronized底层实现monitor详解</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/minikobe/p/12122922.html">https://www.cnblogs.com/minikobe/p/12122922.html</a> –synchronized详解(主要参考博客)</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">小天</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/">http://example.com/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">小天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JAVA/">JAVA</a><a class="post-meta__tags" href="/tags/JUC/">JUC</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/17/juc-atomic%E7%B1%BB/" title="juc-atomic类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">juc-atomic类</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97volatile%E5%92%8Cfinal/" title="juc-关键字volatile和final"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">juc-关键字volatile和final</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/04/17/juc-atomic%E7%B1%BB/" title="juc-atomic类"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-17</div><div class="title">juc-atomic类</div></div></a></div><div><a href="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97volatile%E5%92%8Cfinal/" title="juc-关键字volatile和final"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-17</div><div class="title">juc-关键字volatile和final</div></div></a></div><div><a href="/2023/04/11/Mybatis%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90Springboot%E9%A1%B9%E7%9B%AE/" title="Mybatis框架集成Springboot项目"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-11</div><div class="title">Mybatis框架集成Springboot项目</div></div></a></div><div><a href="/2023/04/10/JVM%E4%BB%8B%E7%BB%8D/" title="JVM介绍"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">JVM介绍</div></div></a></div><div><a href="/2023/04/13/POI%E5%92%8CExcel/" title="POI和Excel"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-13</div><div class="title">POI和Excel</div></div></a></div><div><a href="/2023/04/12/String/" title="String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-12</div><div class="title">String</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小天</div><div class="author-info__description">记录工作中日常遇到及解决问题的博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#synchronized%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">synchronized使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E9%A5%B0%E7%B1%BB%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.</span> <span class="toc-text">修饰类对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.2.</span> <span class="toc-text">修饰对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E9%A5%B0%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">修饰静态成员方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E9%A5%B0%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text">修饰成员方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized%E4%BF%AE%E9%A5%B0%E5%90%8E%E5%AF%B9%E5%BA%94%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81"><span class="toc-number">1.5.</span> <span class="toc-text">synchronized修饰后对应的字节码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM%E5%AF%B9synchronized%E7%9A%84%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">JVM对synchronized的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E5%AF%B9%E8%B1%A1%E5%A4%B4%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">java对象头结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%AF%B9%E8%B1%A1%E5%9C%A8Monitor%E7%9A%84%E6%B5%81%E8%BD%AC%E6%AD%A5%E9%AA%A4%E5%9B%BE"><span class="toc-number">4.</span> <span class="toc-text">线程对象在Monitor的流转步骤图:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="toc-number">4.1.</span> <span class="toc-text">轻量级锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="toc-number">4.2.</span> <span class="toc-text">偏向锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E9%AA%8C%E8%AF%81"><span class="toc-number">4.3.</span> <span class="toc-text">测试验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%81%E6%B6%88%E9%99%A4"><span class="toc-number">4.4.</span> <span class="toc-text">锁消除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%81%E7%9A%84%E8%87%AA%E6%97%8B"><span class="toc-number">4.5.</span> <span class="toc-text">锁的自旋</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81"><span class="toc-number">4.6.</span> <span class="toc-text">重量级锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2"><span class="toc-number">5.</span> <span class="toc-text">参考博客:</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/17/juc-atomic%E7%B1%BB/" title="juc-atomic类">juc-atomic类</a><time datetime="2023-04-17T14:01:09.000Z" title="发表于 2023-04-17 22:01:09">2023-04-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97synchronized/" title="juc-关键字synchronized">juc-关键字synchronized</a><time datetime="2023-04-17T14:00:36.000Z" title="发表于 2023-04-17 22:00:36">2023-04-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/17/juc-%E5%85%B3%E9%94%AE%E5%AD%97volatile%E5%92%8Cfinal/" title="juc-关键字volatile和final">juc-关键字volatile和final</a><time datetime="2023-04-17T13:59:48.000Z" title="发表于 2023-04-17 21:59:48">2023-04-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/13/java%E4%BB%A3%E7%A0%81%E6%A8%A1%E6%8B%9F%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/" title="java代码模拟浏览器发送请求的工具类">java代码模拟浏览器发送请求的工具类</a><time datetime="2023-04-13T03:19:29.000Z" title="发表于 2023-04-13 11:19:29">2023-04-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/13/POI%E5%92%8CExcel/" title="POI和Excel">POI和Excel</a><time datetime="2023-04-13T03:07:38.000Z" title="发表于 2023-04-13 11:07:38">2023-04-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By 小天</div><div class="footer_custom_text">欢迎来到我的博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
