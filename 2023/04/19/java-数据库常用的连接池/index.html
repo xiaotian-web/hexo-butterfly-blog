@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>java-数据库常用的连接池 | 小天的博客</title><meta name="author" content="小天"><meta name="copyright" content="小天"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="DBCP：github地址：https:&#x2F;&#x2F;github.com&#x2F;apache&#x2F;commons-dbcp  apachec3p0: github地址：https:&#x2F;&#x2F;github.com&#x2F;swaldman&#x2F;c3p0  swaldman（个人）druid：github地址：https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;druid&#x2F;wiki alibaba 1）DBCPDBCP是一个依赖Jak">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-数据库常用的连接池">
+<meta property="og:url" content="http://example.com/2023/04/19/java-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%B1%A0/index.html">
+<meta property="og:site_name" content="小天的博客">
+<meta property="og:description" content="DBCP：github地址：https:&#x2F;&#x2F;github.com&#x2F;apache&#x2F;commons-dbcp  apachec3p0: github地址：https:&#x2F;&#x2F;github.com&#x2F;swaldman&#x2F;c3p0  swaldman（个人）druid：github地址：https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;druid&#x2F;wiki alibaba 1）DBCPDBCP是一个依赖Jak">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg">
+<meta property="article:published_time" content="2023-04-19T14:26:14.000Z">
+<meta property="article:modified_time" content="2023-04-19T14:53:04.979Z">
+<meta property="article:author" content="小天">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="DATABASE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/19/java-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%B1%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 小天","link":"链接: ","source":"来源: 小天的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'java-数据库常用的连接池',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-19 22:53:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小天的博客"><span class="site-name">小天的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">java-数据库常用的连接池</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-19T14:26:14.000Z" title="发表于 2023-04-19 22:26:14">2023-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-19T14:53:04.979Z" title="更新于 2023-04-19 22:53:04">2023-04-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="java-数据库常用的连接池"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>DBCP：github地址：<a target="_blank" rel="noopener" href="https://github.com/apache/commons-dbcp">https://github.com/apache/commons-dbcp</a>  apache<br>c3p0: github地址：<a target="_blank" rel="noopener" href="https://github.com/swaldman/c3p0">https://github.com/swaldman/c3p0</a>  swaldman（个人）<br>druid：github地址：<a target="_blank" rel="noopener" href="https://github.com/alibaba/druid/wiki">https://github.com/alibaba/druid/wiki</a> alibaba</p>
+<p>1）DBCP<br>DBCP是一个依赖Jakarta commons-pool对象池机制的数据库连接池.DBCP可以直接的在应用程序中使用，Tomcat的数据源使用的就是DBCP。<br>2）c3p0<br>c3p0是一个开放源代码的JDBC连接池，它在lib目录中与Hibernate一起发布,包括了实现jdbc3和jdbc2扩展规范说明的Connection 和Statement 池的DataSources 对象。<br>3）Druid<br>阿里出品，淘宝和支付宝专用数据库连接池，但它不仅仅是一个数据库连接池，它还包含一个ProxyDriver，一系列内置的JDBC组件库，一个SQL Parser。支持所有JDBC兼容的数据库，包括Oracle、MySql、Derby、Postgresql、SQL Server、H2等等。</p>
+<h3 id="基本配置："><a href="#基本配置：" class="headerlink" title="基本配置："></a>基本配置：</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>DBCP</th>
+<th>c3p0</th>
+<th>Druid</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户名</td>
+<td>username</td>
+<td>user</td>
+<td>username</td>
+</tr>
+<tr>
+<td>密码</td>
+<td>password</td>
+<td>password</td>
+<td>password</td>
+</tr>
+<tr>
+<td>URL</td>
+<td>url</td>
+<td>jdbcUrl</td>
+<td>jdbcUrl</td>
+</tr>
+<tr>
+<td>驱动类名</td>
+<td>driverClassName</td>
+<td>driverClass</td>
+<td>driverClassName</td>
+</tr>
+</tbody></table>
+<h3 id="关键配置："><a href="#关键配置：" class="headerlink" title="关键配置："></a>关键配置：</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>DBCP</th>
+<th>c3p0</th>
+<th>Druid</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最小连接数</td>
+<td>minIdle(0)</td>
+<td>minPoolSize(3)</td>
+<td>minIdle(0)</td>
+</tr>
+<tr>
+<td>初始化连接数</td>
+<td>initialSize(0)</td>
+<td>initialPoolSize(3)</td>
+<td>initialSize(0)</td>
+</tr>
+<tr>
+<td>最大连接数</td>
+<td>maxTotal(8)</td>
+<td>maxPoolSize(15)</td>
+<td>maxActive(8)</td>
+</tr>
+<tr>
+<td>最大等待时间</td>
+<td>maxWaitMillis(毫秒)</td>
+<td>maxIdleTime(0秒)</td>
+<td>maxWait(毫秒)</td>
+</tr>
+</tbody></table>
+<p>说明：<br>数据库连接池在初始化的时候会创建initialSize个连接，当有数据库操作时，会从池中取出一个连接。如果当前池中正在使用的连接数等于maxActive，则会等待一段时间，等待其他操作释放掉某一个连接，如果这个等待时间超过了maxWait，则会报错；如果当前正在使用的连接数没有达到maxActive，则判断当前是否空闲连接，如果有则直接使用空闲连接，如果没有则新建立一个连接。在连接使用完毕后，不是将其物理连接关闭，而是将其放入池中等待其他操作复用</p>
+<p>性能配置：</p>
+<h3 id="预缓存配置："><a href="#预缓存配置：" class="headerlink" title="预缓存配置："></a>预缓存配置：</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>DBCP</th>
+<th>c3p0</th>
+<th>Druid</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开启缓存功能</td>
+<td>poolPreparedStatements</td>
+<td>maxStatementspool</td>
+<td>PreparedStatements</td>
+</tr>
+<tr>
+<td>单个连接拥有的最大缓存数maxOpenPrepared-Statements</td>
+<td>maxStatementsPer-Connection</td>
+<td>maxOpenPrepared-Statements</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="连接有效性检测设置："><a href="#连接有效性检测设置：" class="headerlink" title="连接有效性检测设置："></a>连接有效性检测设置：</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>DBCP</th>
+<th>c3p0</th>
+<th>Druid</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>申请连接检测</td>
+<td>testOnBorrow</td>
+<td>testConnectionOnCheckin</td>
+<td>testOnBorrow</td>
+</tr>
+<tr>
+<td>是否超时检测</td>
+<td>testWhileIdle</td>
+<td></td>
+<td>testWhileIdle</td>
+</tr>
+<tr>
+<td>空闲时间</td>
+<td>timeBetweenEvictionRunsMillis</td>
+<td>idleConnectionTestPeriod</td>
+<td>timeBetweenEvictionRunsMillis</td>
+</tr>
+<tr>
+<td>校验用sql语句</td>
+<td>validationQuery</td>
+<td>preferredTestQuery</td>
+<td>validationQuery</td>
+</tr>
+<tr>
+<td>归还连接检测</td>
+<td>testOnReturn</td>
+<td>testConnectionOnCheckout</td>
+<td>testOnReturn</td>
+</tr>
+</tbody></table>
+<h3 id="超时连接关闭设置："><a href="#超时连接关闭设置：" class="headerlink" title="超时连接关闭设置："></a>超时连接关闭设置：</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>DBCP</th>
+<th>c3p0</th>
+<th>Druid</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>是否超时关闭连接</td>
+<td>removeAbandoned</td>
+<td>breakAfterAcquireFailure</td>
+<td>removeAbandoned</td>
+</tr>
+<tr>
+<td>超时时间</td>
+<td>removeAbandonedTimeout</td>
+<td>checkoutTimeout</td>
+<td>removeAbandonedTimeout</td>
+</tr>
+<tr>
+<td>是否记录日志</td>
+<td>logAbandoned</td>
+<td></td>
+<td>logAbandoned</td>
+</tr>
+</tbody></table>
+<h3 id="重连设置"><a href="#重连设置" class="headerlink" title="重连设置"></a>重连设置</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>DBCP</th>
+<th>c3p0</th>
+<th>Druid</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>重连次数</td>
+<td></td>
+<td>acquireRetryAttempts</td>
+<td></td>
+</tr>
+<tr>
+<td>间隔时间</td>
+<td></td>
+<td>acquireRetryDelay</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="参考博客："><a href="#参考博客：" class="headerlink" title="参考博客："></a>参考博客：</h3><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1435696">https://cloud.tencent.com/developer/article/1435696</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">小天</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/19/java-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%B1%A0/">http://example.com/2023/04/19/java-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%B1%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">小天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JAVA/">JAVA</a><a class="post-meta__tags" href="/tags/DATABASE/">DATABASE</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/04/19/HttpServletRequest%E4%BB%A3%E7%90%86%E5%8C%85%E8%A3%85%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="HttpServletRequest代理包装的实现"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">HttpServletRequest代理包装的实现</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/04/13/POI%E5%92%8CExcel/" title="POI和Excel"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-13</div><div class="title">POI和Excel</div></div></a></div><div><a href="/2023/04/11/Mybatis%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90Springboot%E9%A1%B9%E7%9B%AE/" title="Mybatis框架集成Springboot项目"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-11</div><div class="title">Mybatis框架集成Springboot项目</div></div></a></div><div><a href="/2023/04/19/HttpServletRequest%E4%BB%A3%E7%90%86%E5%8C%85%E8%A3%85%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="HttpServletRequest代理包装的实现"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-19</div><div class="title">HttpServletRequest代理包装的实现</div></div></a></div><div><a href="/2023/04/11/Stream/" title="Stream"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-11</div><div class="title">Stream</div></div></a></div><div><a href="/2023/04/12/String/" title="String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-12</div><div class="title">String</div></div></a></div><div><a href="/2023/04/18/XmlUtil%E5%B7%A5%E5%85%B7%E5%8C%85%E6%95%B4%E7%90%86/" title="XmlUtil工具包整理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-18</div><div class="title">XmlUtil工具包整理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小天</div><div class="author-info__description">记录工作中日常遇到及解决问题的博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">23</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">基本配置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">关键配置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">预缓存配置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9C%89%E6%95%88%E6%80%A7%E6%A3%80%E6%B5%8B%E8%AE%BE%E7%BD%AE%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">连接有效性检测设置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E6%97%B6%E8%BF%9E%E6%8E%A5%E5%85%B3%E9%97%AD%E8%AE%BE%E7%BD%AE%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">超时连接关闭设置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E8%BF%9E%E8%AE%BE%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">重连设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">参考博客：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/19/java-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%B1%A0/" title="java-数据库常用的连接池">java-数据库常用的连接池</a><time datetime="2023-04-19T14:26:14.000Z" title="发表于 2023-04-19 22:26:14">2023-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/19/HttpServletRequest%E4%BB%A3%E7%90%86%E5%8C%85%E8%A3%85%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="HttpServletRequest代理包装的实现">HttpServletRequest代理包装的实现</a><time datetime="2023-04-19T14:25:56.000Z" title="发表于 2023-04-19 22:25:56">2023-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/19/ZipUtil%E5%B7%A5%E5%85%B7%E5%8C%85%E6%95%B4%E7%90%86/" title="ZipUtil工具包整理">ZipUtil工具包整理</a><time datetime="2023-04-19T14:25:19.000Z" title="发表于 2023-04-19 22:25:19">2023-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/18/XmlUtil%E5%B7%A5%E5%85%B7%E5%8C%85%E6%95%B4%E7%90%86/" title="XmlUtil工具包整理">XmlUtil工具包整理</a><time datetime="2023-04-18T14:47:45.000Z" title="发表于 2023-04-18 22:47:45">2023-04-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/18/class%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" title="class文件结构">class文件结构</a><time datetime="2023-04-18T14:47:21.000Z" title="发表于 2023-04-18 22:47:21">2023-04-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By 小天</div><div class="footer_custom_text">欢迎来到我的博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
