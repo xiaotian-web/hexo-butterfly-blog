@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>java基础语法整理 | 小天的博客</title><meta name="author" content="小天"><meta name="copyright" content="小天"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="java代码各种结构              静态常量 静态成员属性 静态代码块 成员属性（常量） 构造代码块 构造函数 静态一般方法 一般方法   加载顺序从左往右 1.先静态后非静态 2.先父类后子类 3.属性-》代码块-》构造函数 java的修饰符访问修饰符   public protected 默认（default） private    所有类都能访问 同包下的类和子类 同包下的类 自">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java基础语法整理">
+<meta property="og:url" content="http://example.com/2023/04/21/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="小天的博客">
+<meta property="og:description" content="java代码各种结构              静态常量 静态成员属性 静态代码块 成员属性（常量） 构造代码块 构造函数 静态一般方法 一般方法   加载顺序从左往右 1.先静态后非静态 2.先父类后子类 3.属性-》代码块-》构造函数 java的修饰符访问修饰符   public protected 默认（default） private    所有类都能访问 同包下的类和子类 同包下的类 自">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg">
+<meta property="article:published_time" content="2023-04-20T16:05:59.000Z">
+<meta property="article:modified_time" content="2023-04-20T16:21:17.810Z">
+<meta property="article:author" content="小天">
+<meta property="article:tag" content="JAVA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/21/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 小天","link":"链接: ","source":"来源: 小天的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'java基础语法整理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-21 00:21:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小天的博客"><span class="site-name">小天的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">java基础语法整理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-20T16:05:59.000Z" title="发表于 2023-04-21 00:05:59">2023-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-20T16:21:17.810Z" title="更新于 2023-04-21 00:21:17">2023-04-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="java基础语法整理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="java代码各种结构"><a href="#java代码各种结构" class="headerlink" title="java代码各种结构"></a>java代码各种结构</h3><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>静态常量</td>
+<td>静态成员属性</td>
+<td>静态代码块</td>
+<td>成员属性（常量）</td>
+<td>构造代码块</td>
+<td>构造函数</td>
+<td>静态一般方法</td>
+<td>一般方法</td>
+</tr>
+</tbody></table>
+<p>加载顺序从左往右</p>
+<p>1.先静态后非静态</p>
+<p>2.先父类后子类</p>
+<p>3.属性-》代码块-》构造函数</p>
+<h3 id="java的修饰符"><a href="#java的修饰符" class="headerlink" title="java的修饰符"></a>java的修饰符</h3><h4 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h4><table>
+<thead>
+<tr>
+<th>public</th>
+<th>protected</th>
+<th>默认（default）</th>
+<th>private</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>所有类都能访问</td>
+<td>同包下的类和子类</td>
+<td>同包下的类</td>
+<td>自己类本身（自己类下面的内部类）</td>
+</tr>
+</tbody></table>
+<h4 id="类访问修饰符：public、默认"><a href="#类访问修饰符：public、默认" class="headerlink" title="类访问修饰符：public、默认"></a>类访问修饰符：public、默认</h4><p>类非访问修饰符：abstract（抽象）、final（常量）、strictfp（浮点按规定格式（IEEE754）计算）</p>
+<p>父子类的继承关系：</p>
+<p>访问修饰符没有作用域的对应关系、父类为final则不能被子类继承、父类为abstract则子类可以为abstract或非abstract，如果子类为非abstract则必须实现父类所有abstract的方法。</p>
+<p>子类为final或abstract修饰时，不受父类非访问关系符的影响。但一个类不能既是final又是abstract的，语意上相矛盾。</p>
+<p>父类为strictfp时，子类不继承父类的strictfp特性，如果子类也要求strictfp，需要自己在重新声明。当修饰类时表示该类的所有浮点数的计算都严格按照IEEE754的规范去执行。strictfp不能与abstract共用。</p>
+<h4 id="属性访问修饰符：public、protected、默认、private"><a href="#属性访问修饰符：public、protected、默认、private" class="headerlink" title="属性访问修饰符：public、protected、默认、private"></a>属性访问修饰符：public、protected、默认、private</h4><p>属性非访问修饰符：static、final、volatile、transient</p>
+<p>父子类的继承关系：</p>
+<p>修饰符父子类不受限制，采用的是就近访问原则。如子类没有该属性，则再去查找父类，父类的修复符继承给子类。</p>
+<p>final和volatile不能同时修饰使用：final修饰属性时表示基本类型的值和引用类型的地址不能被改变，而volatile修饰属性时表示线程使用的属性需与主内存的属性值同步，修改时需写入到共享主内存。语意上相矛盾，所以不能同时修饰。</p>
+<p>transient常与Serilizable接口配合使用，表示transient修饰的变量不被序列化使用。但当与static一起使用时，transient的作用将失效，因为static修饰的变量均不能被序列化，它的值来源于jvm中的，不是反序列化得出的。</p>
+<p>当属性为局部属性时，只能用final修饰，没有其他修饰符。</p>
+<h4 id="代码块访问修饰符：没有访问修饰符"><a href="#代码块访问修饰符：没有访问修饰符" class="headerlink" title="代码块访问修饰符：没有访问修饰符"></a>代码块访问修饰符：没有访问修饰符</h4><p>代码块非访问修饰符：static</p>
+<p>父子类的继承关系：</p>
+<p>不受限制，加载顺序：静态父代码块-》静态子代码块-》父代码块-》子代码块</p>
+<p>代码块有三种：静态代码块、代码块、局部代码块。</p>
+<h4 id="构造方法访问修饰符：public、protected、默认、private"><a href="#构造方法访问修饰符：public、protected、默认、private" class="headerlink" title="构造方法访问修饰符：public、protected、默认、private"></a>构造方法访问修饰符：public、protected、默认、private</h4><p>无非访问修饰符</p>
+<p>父子类的继承关系：</p>
+<p>不受限制，加载顺序：父类代码块-》父类构造函数-》子类代码块-》子类构造函数</p>
+<p>子类构造函数默认调用父类的无参构造函数、如需重新指定则通过super方式直接引用构造函数进行变更。且调用父类构造函数只能执行一次。也可以通过this的方式指定指定调用其他构造函数，但也只能指定一个,并且不能指定其本身的构造函数。</p>
+<p>一般方法访问修饰符：public、protected、默认、private</p>
+<p>一般方法非访问修饰符：static、final、synchronized、void、abstract、strictfp</p>
+<p>父子类的继承关系：</p>
+<p>子类方法的访问修饰符不能小于被重写的父类方法的访问修饰符的访问范围，否则会提示编译不通过。子类继承父类所有在访问修饰符能访问范围内的所有方法。</p>
+<p>用final修饰的方法，则不能被子类重写，不能与abstract共用</p>
+<p>用abstract修饰的方法，则子类一定要重写该方法或者该子类也是抽象子类，不能与final和static共用</p>
+<p>用static修饰的方法，子类要重写则也一定是statci修饰的方法，且该方法可以通过类直接引用，不能与abstract共用</p>
+<p>用void修饰方法，表示方法没有返回值，子类要重写则也一定是void修饰的方法，如是其他有返回值的对象，则也需要类型保持一致或者返回该类型的子类型。</p>
+<p>用synchronized修饰反复方法，表示该方法是同步的。如果引用的都为非static方法，则子类调用父类同步方法的锁对象为子类对象，如果引用的为static方法，则子类调用父类同步方法的锁对象为父类。非静态方法表示同步锁对象为该对象本身，静态方法表示同步对象为该对象的类。所以该类所有的静态方法是同一把锁，该类所有的非静态方法是同一把锁。</p>
+<p>用strictfp修饰方法，表示该方法内所有的浮点数计算都严格按照IEEE754规范的要求执行。strictfp不能与abstract共用。</p>
+<h3 id="内部类：成员内部类，局部内部类，匿名内部类，静态内部类"><a href="#内部类：成员内部类，局部内部类，匿名内部类，静态内部类" class="headerlink" title="内部类：成员内部类，局部内部类，匿名内部类，静态内部类"></a>内部类：成员内部类，局部内部类，匿名内部类，静态内部类</h3><h4 id="成员内部类，静态内部类"><a href="#成员内部类，静态内部类" class="headerlink" title="成员内部类，静态内部类"></a>成员内部类，静态内部类</h4><p>访问修饰符:public，protected，默认，private</p>
+<p>非访问修饰符：static、final、strictfp</p>
+<p>访问修饰符的作用域同外部类的。final也表示该类不能被子类重写。static是区分成员内部类和静态内部类的标识。成员内部类在外部引用时需要先创建外部对象，再创建内部类对象才能使用。静态内部类，可以直接通过外部类引用创建内部类对象，注意通过此种方法创建的内部类，外部类的静态代码块不会被加载。使用strictfp时表示该内部类的所有浮点数的计算都严格按照IEEE754的规范来执行。</p>
+<h4 id="局部内部类，匿名内部类"><a href="#局部内部类，匿名内部类" class="headerlink" title="局部内部类，匿名内部类"></a>局部内部类，匿名内部类</h4><p>局部内部类，是作用在方法、代码块或构造函数中。作用范围仅在局部的作用域内，局部内部类引用的局部变量必须为final的，表示在局部内部类中该变量的引用不能被改变。</p>
+<p>匿名内部类，是匿名内部类在使用时创建该对象的匿名内部类并重写相应的方法，执行该方法时，执行的是刚才重写的方法。</p>
+<p>内部类的继承关系：内部类继承其他外部类的内部类，需要通过外部类的类引用来继承，如果子类内部类的外部类继承子类内部类的父类的外部类，则内部类子类可以直接继承内部类父类。静态内部类只能继承静态内部父类，成员内部类只能继承成员内部父类。静态内部类和成员内部类都可以继承外部类。</p>
+<p>所有内部类里面都不含有静态成员变量、静态方法、静态代码块。静态常量除外。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">小天</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/21/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/">http://example.com/2023/04/21/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">小天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JAVA/">JAVA</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/21/junit-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" title="junit-单元测试框架"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">junit-单元测试框架</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/19/java-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%B1%A0/" title="java-数据库常用的连接池"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">java-数据库常用的连接池</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/04/19/HttpServletRequest%E4%BB%A3%E7%90%86%E5%8C%85%E8%A3%85%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="HttpServletRequest代理包装的实现"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-19</div><div class="title">HttpServletRequest代理包装的实现</div></div></a></div><div><a href="/2023/04/10/JVM%E4%BB%8B%E7%BB%8D/" title="JVM介绍"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-10</div><div class="title">JVM介绍</div></div></a></div><div><a href="/2023/04/11/Mybatis%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90Springboot%E9%A1%B9%E7%9B%AE/" title="Mybatis框架集成Springboot项目"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-11</div><div class="title">Mybatis框架集成Springboot项目</div></div></a></div><div><a href="/2023/04/13/POI%E5%92%8CExcel/" title="POI和Excel"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-13</div><div class="title">POI和Excel</div></div></a></div><div><a href="/2023/04/11/Stream/" title="Stream"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-11</div><div class="title">Stream</div></div></a></div><div><a href="/2023/04/12/String/" title="String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-12</div><div class="title">String</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小天</div><div class="author-info__description">记录工作中日常遇到及解决问题的博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E4%BB%A3%E7%A0%81%E5%90%84%E7%A7%8D%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">java代码各种结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">2.</span> <span class="toc-text">java的修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">2.1.</span> <span class="toc-text">访问修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%9Apublic%E3%80%81%E9%BB%98%E8%AE%A4"><span class="toc-number">2.2.</span> <span class="toc-text">类访问修饰符：public、默认</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%9Apublic%E3%80%81protected%E3%80%81%E9%BB%98%E8%AE%A4%E3%80%81private"><span class="toc-number">2.3.</span> <span class="toc-text">属性访问修饰符：public、protected、默认、private</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%9A%E6%B2%A1%E6%9C%89%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">2.4.</span> <span class="toc-text">代码块访问修饰符：没有访问修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%9Apublic%E3%80%81protected%E3%80%81%E9%BB%98%E8%AE%A4%E3%80%81private"><span class="toc-number">2.5.</span> <span class="toc-text">构造方法访问修饰符：public、protected、默认、private</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%EF%BC%9A%E6%88%90%E5%91%98%E5%86%85%E9%83%A8%E7%B1%BB%EF%BC%8C%E5%B1%80%E9%83%A8%E5%86%85%E9%83%A8%E7%B1%BB%EF%BC%8C%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB%EF%BC%8C%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">内部类：成员内部类，局部内部类，匿名内部类，静态内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%86%85%E9%83%A8%E7%B1%BB%EF%BC%8C%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">3.1.</span> <span class="toc-text">成员内部类，静态内部类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%86%85%E9%83%A8%E7%B1%BB%EF%BC%8C%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">3.2.</span> <span class="toc-text">局部内部类，匿名内部类</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/21/application-properties-springboot%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="application.properties-springboot的配置文件">application.properties-springboot的配置文件</a><time datetime="2023-04-20T16:16:31.000Z" title="发表于 2023-04-21 00:16:31">2023-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/21/junit-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" title="junit-单元测试框架">junit-单元测试框架</a><time datetime="2023-04-20T16:10:56.000Z" title="发表于 2023-04-21 00:10:56">2023-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/21/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/" title="java基础语法整理">java基础语法整理</a><time datetime="2023-04-20T16:05:59.000Z" title="发表于 2023-04-21 00:05:59">2023-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/19/java-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%B1%A0/" title="java-数据库常用的连接池">java-数据库常用的连接池</a><time datetime="2023-04-19T14:26:14.000Z" title="发表于 2023-04-19 22:26:14">2023-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/19/HttpServletRequest%E4%BB%A3%E7%90%86%E5%8C%85%E8%A3%85%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="HttpServletRequest代理包装的实现">HttpServletRequest代理包装的实现</a><time datetime="2023-04-19T14:25:56.000Z" title="发表于 2023-04-19 22:25:56">2023-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By 小天</div><div class="footer_custom_text">欢迎来到我的博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
