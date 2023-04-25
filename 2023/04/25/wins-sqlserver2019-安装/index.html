@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>wins-sqlserver2019-安装 | 小天的博客</title><meta name="author" content="小天"><meta name="copyright" content="小天"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="windows 2019下载地址，参考博客; https:&#x2F;&#x2F;www.cnblogs.com&#x2F;mq0036&#x2F;p&#x2F;13500880.html 或https:&#x2F;&#x2F;www.jb51.net&#x2F;softjc&#x2F;703811_all.html 官网下载的地址： https:&#x2F;&#x2F;download.microsoft.com&#x2F;download&#x2F;c&#x2F;d&#x2F;4&#x2F;cd466ca8-ad1e-4ba9-8590-cda568">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wins-sqlserver2019-安装">
+<meta property="og:url" content="http://example.com/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="小天的博客">
+<meta property="og:description" content="windows 2019下载地址，参考博客; https:&#x2F;&#x2F;www.cnblogs.com&#x2F;mq0036&#x2F;p&#x2F;13500880.html 或https:&#x2F;&#x2F;www.jb51.net&#x2F;softjc&#x2F;703811_all.html 官网下载的地址： https:&#x2F;&#x2F;download.microsoft.com&#x2F;download&#x2F;c&#x2F;d&#x2F;4&#x2F;cd466ca8-ad1e-4ba9-8590-cda568">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg">
+<meta property="article:published_time" content="2023-04-25T09:17:53.000Z">
+<meta property="article:modified_time" content="2023-04-25T09:49:41.785Z">
+<meta property="article:author" content="小天">
+<meta property="article:tag" content="WINS">
+<meta property="article:tag" content="SQLSERVER">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 小天","link":"链接: ","source":"来源: 小天的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'wins-sqlserver2019-安装',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-25 17:49:41'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小天的博客"><span class="site-name">小天的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">wins-sqlserver2019-安装</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-25T09:17:53.000Z" title="发表于 2023-04-25 17:17:53">2023-04-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-25T09:49:41.785Z" title="更新于 2023-04-25 17:49:41">2023-04-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Sqlserver2019/">Sqlserver2019</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="wins-sqlserver2019-安装"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="windows-2019下载地址，"><a href="#windows-2019下载地址，" class="headerlink" title="windows 2019下载地址，"></a>windows 2019下载地址，</h3><p>参考博客;</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mq0036/p/13500880.html">https://www.cnblogs.com/mq0036/p/13500880.html</a></p>
+<p>或<a target="_blank" rel="noopener" href="https://www.jb51.net/softjc/703811_all.html">https://www.jb51.net/softjc/703811_all.html</a></p>
+<p>官网下载的地址：</p>
+<p><a target="_blank" rel="noopener" href="https://download.microsoft.com/download/c/d/4/cd466ca8-ad1e-4ba9-8590-cda56802ac85/SQLEXPRADV_x64_CHS.exe">https://download.microsoft.com/download/c/d/4/cd466ca8-ad1e-4ba9-8590-cda56802ac85/SQLEXPRADV_x64_CHS.exe</a></p>
+<p>操作步骤：</p>
+<h3 id="安装sqlserver2019数据库"><a href="#安装sqlserver2019数据库" class="headerlink" title="安装sqlserver2019数据库"></a>安装sqlserver2019数据库</h3><p>1.安装sqlserver2019数据库</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCEea097428bf77064e5d954715a9be80fc.png"></p>
+<p>2.接受许可，下一步</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE6df597888134b4c53b2316b0d8530235.png"></p>
+<p>3.下一步</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE54bc64ee958c5db3910f76a6566f9d98.png"></p>
+<p>4.取消机器学习服务和语言扩展，修改sqlserver安装路径，注意目录都不能相同</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCEfd4ec1c587d68cdb12e355e03a59e48c.png"></p>
+<p>4.选择默认实例，下一步</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCEaeaa3f968582c05cc61556c486affce3.png"></p>
+<p>5.下一步</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE9e74214276c3ff51cb7c235a3edc7e54.png"></p>
+<p>6.选择混合模式，输入sa密码（sa@123），添加当前用户，下一步</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE41e5c7e0d01197e3dc2f17cffd4d9499.png"></p>
+<p>7.等待sqlserver数据库安装，安装成功关闭</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE6dfb44b690ce4e54b0dae1180b0e355d.png"></p>
+<p>8.打开sqlserver远程协议，使它能够远程连接</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/80E7B8470C094132A3EC0A46C0433645.png"></p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/10B5D4804C004E2FB90D2B5B7F047EAA.png"></p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/CA94C03CC3564890A8F517FE9B94951A.png"></p>
+<h3 id="安装sqlserver管理工具studio"><a href="#安装sqlserver管理工具studio" class="headerlink" title="安装sqlserver管理工具studio"></a>安装sqlserver管理工具studio</h3><p>1.在sqlserver安装中心选择第三个</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE62f27ac2ae6b3b865762d26b60c315c2.png"></p>
+<p>2.在打开的网站上选择简体中文下载</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCEe40440ff7222b2d366ff57b5b1d985df.png"></p>
+<p>3.打开下载的工具包，修改studio的安装路径</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE41547cb4e1bb2b379ce04cb893c77a41.png"></p>
+<p>4.安装成功之后需要重启服务</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE82ac6ba09b410fdb5d6d2d8b64f8ba3a.png"></p>
+<p>5.重启完成之后打开sqlserver managemnet</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCEb14a79ae0cd25d6fe9333ea8afc738f1.png"></p>
+<p>6.点击连接</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE2ba157582e2d273b153ecd0ef3f9f113.png"></p>
+<p>7.连接成功，studio工具安装完成</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCEcdb7bbf6186f223bb41367e871bb1f52.png"></p>
+<h3 id="将sqlserver2019-express升级成enterprise版本"><a href="#将sqlserver2019-express升级成enterprise版本" class="headerlink" title="将sqlserver2019 express升级成enterprise版本"></a>将sqlserver2019 express升级成enterprise版本</h3><p>1.打开sqlserver安装中心，点击维护-》版本升级</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE45c6be87a4bc5e82d56c92d448c535f0.png"></p>
+<p>2.输入上面的产品密钥，点击下一步（HMWJ3-KY3J2-NMVD7-KG4JR-X2G8G）,注意如果是express版本说明服务器还未重启。</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE50b02bd1cebbf5d61308ddea3b1c6cf3.png"></p>
+<p>3.接受许可下一步</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE5bc2e79e1cafa9147f99bbbe202bdd01.png"></p>
+<p>4.下一步</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCE3cbb896c82ddb53eda2761478b45afd5.png"></p>
+<p>5.点击升级，升级完成后在重复之前还原的数据库操作</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/WEBRESOURCEd5fad4764e446d973603a80892cd7b7a.png"></p>
+<p>参考博客：</p>
+<p>密钥来源博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/firelightlong/article/details/102947775">https://blog.csdn.net/firelightlong/article/details/102947775</a></p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.启动 SQLEXPRADV_x64_CHS.exe文件，参考博客步骤安装，生成用户的时候注意创建账号</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/AF90DD4556344FDBA74B4E1EF71C47BA.png"></p>
+<p>2.远程数据库连接不上的问题：</p>
+<p>1.打开控制面版：</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/80E7B8470C094132A3EC0A46C0433645.png"></p>
+<p>2.放开协议：</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/10B5D4804C004E2FB90D2B5B7F047EAA.png"></p>
+<p>3.重启sqlserver服务：</p>
+<p><img src="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/CA94C03CC3564890A8F517FE9B94951A.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">小天</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/">http://example.com/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">小天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/WINS/">WINS</a><a class="post-meta__tags" href="/tags/SQLSERVER/">SQLSERVER</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/25/linux-sqlserver2019-%E5%AE%89%E8%A3%85/" title="linux-sqlserver2019-安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">linux-sqlserver2019-安装</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/25/wins-mssql2012-%E5%AE%89%E8%A3%85/" title="wins-mssql2012-安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">wins-mssql2012-安装</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/04/25/wins-mssql2012-%E5%AE%89%E8%A3%85/" title="wins-mssql2012-安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-25</div><div class="title">wins-mssql2012-安装</div></div></a></div><div><a href="/2023/04/25/linux-sqlserver2019-%E5%AE%89%E8%A3%85/" title="linux-sqlserver2019-安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-25</div><div class="title">linux-sqlserver2019-安装</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小天</div><div class="author-info__description">记录工作中日常遇到及解决问题的博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#windows-2019%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80%EF%BC%8C"><span class="toc-number">1.</span> <span class="toc-text">windows 2019下载地址，</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85sqlserver2019%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">安装sqlserver2019数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85sqlserver%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7studio"><span class="toc-number">3.</span> <span class="toc-text">安装sqlserver管理工具studio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86sqlserver2019-express%E5%8D%87%E7%BA%A7%E6%88%90enterprise%E7%89%88%E6%9C%AC"><span class="toc-number">4.</span> <span class="toc-text">将sqlserver2019 express升级成enterprise版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">5.</span> <span class="toc-text">注意事项</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/25/linux-sqlserver2019-%E5%AE%89%E8%A3%85/" title="linux-sqlserver2019-安装">linux-sqlserver2019-安装</a><time datetime="2023-04-25T09:18:08.000Z" title="发表于 2023-04-25 17:18:08">2023-04-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/25/wins-sqlserver2019-%E5%AE%89%E8%A3%85/" title="wins-sqlserver2019-安装">wins-sqlserver2019-安装</a><time datetime="2023-04-25T09:17:53.000Z" title="发表于 2023-04-25 17:17:53">2023-04-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/25/wins-mssql2012-%E5%AE%89%E8%A3%85/" title="wins-mssql2012-安装">wins-mssql2012-安装</a><time datetime="2023-04-25T09:17:21.000Z" title="发表于 2023-04-25 17:17:21">2023-04-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/24/linux-mysql5-7-rpm%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85/" title="linux-mysql5.7-rpm方式安装">linux-mysql5.7-rpm方式安装</a><time datetime="2023-04-24T14:34:40.000Z" title="发表于 2023-04-24 22:34:40">2023-04-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/24/wins-mysql5-7-%E5%AE%89%E8%A3%85/" title="wins-mysql5.7-安装">wins-mysql5.7-安装</a><time datetime="2023-04-24T14:34:21.000Z" title="发表于 2023-04-24 22:34:21">2023-04-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By 小天</div><div class="footer_custom_text">欢迎来到我的博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
