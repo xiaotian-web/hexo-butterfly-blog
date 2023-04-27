@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Linux指令语法 | 小天的博客</title><meta name="author" content="小天"><meta name="copyright" content="小天"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="备注：增加了sftp和ftp的整理，添加了traceroute命令的整理 增加ps -aux和ctrl z指令的了解12345678#查看进程状态ps -aux|grep &quot;应用名&quot;#挂起进程ctrl z#前端恢复fg#后端恢复bg      各线程状态： ps看了一下状态，发现状态是sl+， 在Linux中，状态如下： D 不可中断 Uninterruptible sleep">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux指令语法">
+<meta property="og:url" content="http://example.com/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="小天的博客">
+<meta property="og:description" content="备注：增加了sftp和ftp的整理，添加了traceroute命令的整理 增加ps -aux和ctrl z指令的了解12345678#查看进程状态ps -aux|grep &quot;应用名&quot;#挂起进程ctrl z#前端恢复fg#后端恢复bg      各线程状态： ps看了一下状态，发现状态是sl+， 在Linux中，状态如下： D 不可中断 Uninterruptible sleep">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg">
+<meta property="article:published_time" content="2023-04-27T09:33:09.000Z">
+<meta property="article:modified_time" content="2023-04-27T09:46:54.823Z">
+<meta property="article:author" content="小天">
+<meta property="article:tag" content="LINUX">
+<meta property="article:tag" content="SHELL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/%E6%94%80%E7%99%BB.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 小天","link":"链接: ","source":"来源: 小天的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux指令语法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-27 17:46:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">41</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小天的博客"><span class="site-name">小天的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux指令语法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-27T09:33:09.000Z" title="发表于 2023-04-27 17:33:09">2023-04-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-27T09:46:54.823Z" title="更新于 2023-04-27 17:46:54">2023-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Shell/">Shell</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux指令语法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>备注：增加了sftp和ftp的整理，添加了traceroute命令的整理</p>
+<h3 id="增加ps-aux和ctrl-z指令的了解"><a href="#增加ps-aux和ctrl-z指令的了解" class="headerlink" title="增加ps -aux和ctrl z指令的了解"></a>增加ps -aux和ctrl z指令的了解</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看进程状态</span></span><br><span class="line">ps -aux|grep &quot;应用名&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">挂起进程</span></span><br><span class="line">ctrl z</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">前端恢复</span></span><br><span class="line">fg</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">后端恢复</span></span><br><span class="line">bg</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>各线程状态：</p>
+<p>ps看了一下状态，发现状态是sl+，</p>
+<p>在Linux中，状态如下：</p>
+<p>D 不可中断 Uninterruptible sleep (usually IO)</p>
+<p>R 正在运行，或在队列中的进程</p>
+<p>S 处于休眠状态</p>
+<p>T 停止或被追踪</p>
+<p>Z 僵尸进程</p>
+<p>W 进入内存交换(从内核2.6开始无效)</p>
+<p>X 死掉的进程</p>
+<p>&lt; 高优先级</p>
+<p>N 低优先级</p>
+<p>L 有些页被锁进内存</p>
+<p>s 包含子进程</p>
+<ul>
+<li>位于后台的进程组</li>
+</ul>
+<p>l 多线程，克隆线程</p>
+<p>参考博客：</p>
+<p><a target="_blank" rel="noopener" href="https://codeantenna.com/a/kFNmXymWsV">https://codeantenna.com/a/kFNmXymWsV</a></p>
+<h3 id="ctrl-其他用法："><a href="#ctrl-其他用法：" class="headerlink" title="ctrl + 其他用法："></a>ctrl + 其他用法：</h3><p>ctrl-c: ( kill foreground process ) 发送 SIGINT 信号给前台进程组中的所有进程，强制终止程序的执行；</p>
+<p>ctrl-z: ( suspend foreground process ) 发送 SIGTSTP 信号给前台进程组中的所有进程，常用于挂起一个进程，而并</p>
+<p>非结束进程，用户可以使用使用fg/bg操作恢复执行前台或后台的进程。fg命令在前台恢复执行被挂起的进</p>
+<p>程，此时可以使用ctrl-z再次挂起该进程，bg命令在后台恢复执行被挂起的进程，而此时将无法使用ctrl-z</p>
+<p>再次挂起该进程；</p>
+<p>一个比较常用的功能：</p>
+<p>正在使用vi编辑一个文件时，需要执行shell命令查询一些需要的信息，可以使用ctrl-z挂起vi，等执行                   完shell命令后再使用fg恢复vi继续编辑你的文件（当然，也可以在vi中使用！command方式执行shell命令，</p>
+<p>但是没有该方法方便）。</p>
+<p>ctrl-d: ( Terminate input, or exit shell ) 一个特殊的二进制值，表示 EOF，作用相当于在终端中输入exit后回车；</p>
+<p>还有以下几个：</p>
+<p>ctrl-/    发送 SIGQUIT 信号给前台进程组中的所有进程，终止前台进程并生成 core 文件</p>
+<p>ctrl-s   中断控制台输出</p>
+<p>ctrl-q   恢复控制台输出</p>
+<p>ctrl-l    清屏</p>
+<p>在终端查看命令 stty -a</p>
+<p>参考博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/mylizh/article/details/38385739">https://blog.csdn.net/mylizh/article/details/38385739</a></p>
+<h3 id="sftp和ftp"><a href="#sftp和ftp" class="headerlink" title="sftp和ftp"></a>sftp和ftp</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看服务器sftp和ftp是否开启</span></span><br><span class="line">ps -ef|grep sftp</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCE1b1d9487ea08b89408a8b46242420122.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">sftp开启和关闭</span></span><br><span class="line">/etc/init.d/sshd start</span><br><span class="line">/etc/init.d/sshd stop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ftp开启和关闭</span></span><br><span class="line">service vsftpd start</span><br><span class="line">service vsftpd stop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">ftp查看运行状态</span></span><br><span class="line">service vsftpd status</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCE7a2ce88547d4145fafb977547ebea186.png"></p>
+<h3 id="traceroute命令"><a href="#traceroute命令" class="headerlink" title="traceroute命令"></a>traceroute命令</h3><p>显示数据包到主机间的路径</p>
+<p>用于追踪数据包在网络上的传输时的全部路径，它默认发送的数据包大小是40字节。</p>
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCE06e0b0d50b2665495ccc2ba2c65a0494.png"></p>
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCEbf82af4ba82c987b920ae81e45cd6328.png"></p>
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCE4856381fef07217d4f0ce9e5e95d991b.png"></p>
+<p>*表示可能防火墙封掉了ICMP的返回信息，所以我们得不到什么相关的数据包返回数据。</p>
+<h3 id="tar命令的使用"><a href="#tar命令的使用" class="headerlink" title="tar命令的使用"></a>tar命令的使用</h3><p>tar包解压:</p>
+<p>tar -xvzf xxx.tar.gz</p>
+<p>压缩成tar包</p>
+<p>压缩文件</p>
+<p>tar -czf xxx.tar.gz  xxx.xxx</p>
+<p>压缩文件夹下所有</p>
+<p>tar -cvzf xxx.tar.gz ./xxx</p>
+<p>具体介绍可参加: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/jyaray/archive/2011/04/30/2033362.html">https://www.cnblogs.com/jyaray/archive/2011/04/30/2033362.html</a></p>
+<h3 id="linux创建用户账号和密码并添加ssh登录权限"><a href="#linux创建用户账号和密码并添加ssh登录权限" class="headerlink" title="linux创建用户账号和密码并添加ssh登录权限"></a>linux创建用户账号和密码并添加ssh登录权限</h3><p>在root账号下操作</p>
+<p>#1 创建user账号并分配对应目录</p>
+<p>useradd /home/test test</p>
+<p>#2 设置密码</p>
+<p>passwd test</p>
+<p>#3 进入对应目录并创建对应文件夹</p>
+<p>cd /home &amp;&amp; mkdir test</p>
+<p>#4 修改文件夹权限</p>
+<p>chown test test/</p>
+<p>#5 切换到对应用户</p>
+<p>su test</p>
+<p>#6 创建.ssh目录</p>
+<p>mkdir .ssh</p>
+<p>#7 进入对应.ssh</p>
+<p>cd .ssh</p>
+<p>#8 创建sshkey文件</p>
+<p>vi autorized_keys</p>
+<p>#9 在里面写入公钥,保存退出</p>
+<p>#10修改sshkey文件权限</p>
+<p>vi authorized_keys</p>
+<p>#12 切换回root账号</p>
+<p>su root</p>
+<p>#13 修改sshd_config文件</p>
+<p>vi /etc/ssh/sshd_config</p>
+<p>最后面添加用户</p>
+<p>AllowUsers test</p>
+<p>#14 检查修改的文件是否正确</p>
+<p>/usr/sbin/sshd -T</p>
+<p>#15 重启sshd服务</p>
+<p>service sshd restart</p>
+<p>然后通过客户端工具进行配置测试连接,如果能正常连接说明配置成功,如图:</p>
+<p>客户端连接配置信息:</p>
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCEea8cda9dd2fe2843f32f7d601620bdb8.png"></p>
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCE3966d5422be488f8d79952b94eff7821.png"></p>
+<p>登录成功:</p>
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCE60ed923eed5bc28df2e9f27d936f02b5.png"></p>
+<p>参考博客: <a target="_blank" rel="noopener" href="https://blog.csdn.net/WoBenZiYou/article/details/101465198">https://blog.csdn.net/WoBenZiYou/article/details/101465198</a></p>
+<h3 id="查看相应服务端口是否启动"><a href="#查看相应服务端口是否启动" class="headerlink" title="查看相应服务端口是否启动"></a>查看相应服务端口是否启动</h3><ol>
+<li><p>ps -ef|grep java</p>
+</li>
+<li><p>lsof -i :8080</p>
+</li>
+</ol>
+<p>3.netstat -tunlp|grep 8080</p>
+<h3 id="不同linux操作系统关闭防火墙的不同指令"><a href="#不同linux操作系统关闭防火墙的不同指令" class="headerlink" title="不同linux操作系统关闭防火墙的不同指令"></a>不同linux操作系统关闭防火墙的不同指令</h3><p>centos下</p>
+<p>都需要root用户</p>
+<p>#停止firewall</p>
+<p>systemctl stop firewalld.service</p>
+<p>#禁止firewall开机启动</p>
+<p>systemctl disable firwalld.service</p>
+<p>#关闭iptables</p>
+<p>service iptable stop</p>
+<p>#去掉iptables开启启动</p>
+<p>chkconfig iptables off</p>
+<p>oracle下</p>
+<p>#停止firewall</p>
+<p>systemctl stop firewalld.service</p>
+<p>#禁止firewall开机启动</p>
+<p>systemctl disable firewalld.service</p>
+<p>ubuntu下</p>
+<p>#停止firewall</p>
+<p>ufw disable</p>
+<p>#开启firewall</p>
+<p>ufw enable</p>
+<h3 id="chmod指令用法说明"><a href="#chmod指令用法说明" class="headerlink" title="chmod指令用法说明:"></a>chmod指令用法说明:</h3><p>chmod 对应数字 对应文件或文件夹</p>
+<p>其中a,b,c各为一个数字，分别表示User、Group、及Other的权限。</p>
+<p>r=4，w=2，x=1</p>
+<p>若要rwx属性则4+2+1=7；</p>
+<p>若要rw-属性则4+2=6；</p>
+<p>若要r-x属性则4+1=7</p>
+<p>参考博客: <a target="_blank" rel="noopener" href="https://blog.csdn.net/LYJ_viviani/article/details/59149488">https://blog.csdn.net/LYJ_viviani/article/details/59149488</a></p>
+<h3 id="netstat指令-通过pid-进程号-查询对应应用启动端口-如图"><a href="#netstat指令-通过pid-进程号-查询对应应用启动端口-如图" class="headerlink" title="netstat指令,通过pid(进程号)查询对应应用启动端口,如图:"></a>netstat指令,通过pid(进程号)查询对应应用启动端口,如图:</h3><p>netstat -nap|grep pid</p>
+<p><img src="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/WEBRESOURCE510adcae26d6600efb7e9a746eea52c5.png"></p>
+<p>参考博客: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/macolee/p/5664306.html">https://www.cnblogs.com/macolee/p/5664306.html</a></p>
+<h3 id="shutdown指令-立即关机"><a href="#shutdown指令-立即关机" class="headerlink" title="shutdown指令,立即关机"></a>shutdown指令,立即关机</h3><p>shutdown -h now</p>
+<p>参考博客: <a target="_blank" rel="noopener" href="https://www.w3cschool.cn/linux/linux-are12oz3.html">https://www.w3cschool.cn/linux/linux-are12oz3.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">小天</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/">http://example.com/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">小天的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LINUX/">LINUX</a><a class="post-meta__tags" href="/tags/SHELL/">SHELL</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/04/27/mysql-%E4%BB%8E%E6%97%A7wins%E8%BF%81%E7%A7%BB%E5%88%B0%E6%96%B0wins/" title="mysql-从旧wins迁移到新wins"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">mysql-从旧wins迁移到新wins</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/04/26/linux-oracle11g-%E9%9D%99%E9%BB%98%E5%AE%89%E8%A3%85/" title="linux-oracle11g-静默安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-26</div><div class="title">linux-oracle11g-静默安装</div></div></a></div><div><a href="/2023/04/25/linux-sqlserver2019-%E5%AE%89%E8%A3%85/" title="linux-sqlserver2019-安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-25</div><div class="title">linux-sqlserver2019-安装</div></div></a></div><div><a href="/2023/04/24/linux-mysql5-7-rpm%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85/" title="linux-mysql5.7-rpm方式安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-24</div><div class="title">linux-mysql5.7-rpm方式安装</div></div></a></div><div><a href="/2023/04/23/%E5%8F%8D%E5%BC%B9shell%E6%95%B4%E7%90%86/" title="反弹shell整理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-23</div><div class="title">反弹shell整理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/%E6%94%80%E7%99%BB.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小天</div><div class="author-info__description">记录工作中日常遇到及解决问题的博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">41</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0ps-aux%E5%92%8Cctrl-z%E6%8C%87%E4%BB%A4%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">增加ps -aux和ctrl z指令的了解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ctrl-%E5%85%B6%E4%BB%96%E7%94%A8%E6%B3%95%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">ctrl + 其他用法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sftp%E5%92%8Cftp"><span class="toc-number">3.</span> <span class="toc-text">sftp和ftp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#traceroute%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">traceroute命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tar%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">tar命令的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E8%B4%A6%E5%8F%B7%E5%92%8C%E5%AF%86%E7%A0%81%E5%B9%B6%E6%B7%BB%E5%8A%A0ssh%E7%99%BB%E5%BD%95%E6%9D%83%E9%99%90"><span class="toc-number">6.</span> <span class="toc-text">linux创建用户账号和密码并添加ssh登录权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%9B%B8%E5%BA%94%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%90%AF%E5%8A%A8"><span class="toc-number">7.</span> <span class="toc-text">查看相应服务端口是否启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%90%8Clinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E4%B8%8D%E5%90%8C%E6%8C%87%E4%BB%A4"><span class="toc-number">8.</span> <span class="toc-text">不同linux操作系统关闭防火墙的不同指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chmod%E6%8C%87%E4%BB%A4%E7%94%A8%E6%B3%95%E8%AF%B4%E6%98%8E"><span class="toc-number">9.</span> <span class="toc-text">chmod指令用法说明:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#netstat%E6%8C%87%E4%BB%A4-%E9%80%9A%E8%BF%87pid-%E8%BF%9B%E7%A8%8B%E5%8F%B7-%E6%9F%A5%E8%AF%A2%E5%AF%B9%E5%BA%94%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E7%AB%AF%E5%8F%A3-%E5%A6%82%E5%9B%BE"><span class="toc-number">10.</span> <span class="toc-text">netstat指令,通过pid(进程号)查询对应应用启动端口,如图:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shutdown%E6%8C%87%E4%BB%A4-%E7%AB%8B%E5%8D%B3%E5%85%B3%E6%9C%BA"><span class="toc-number">11.</span> <span class="toc-text">shutdown指令,立即关机</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/27/Linux%E6%8C%87%E4%BB%A4%E8%AF%AD%E6%B3%95/" title="Linux指令语法">Linux指令语法</a><time datetime="2023-04-27T09:33:09.000Z" title="发表于 2023-04-27 17:33:09">2023-04-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/27/mysql-%E4%BB%8E%E6%97%A7wins%E8%BF%81%E7%A7%BB%E5%88%B0%E6%96%B0wins/" title="mysql-从旧wins迁移到新wins">mysql-从旧wins迁移到新wins</a><time datetime="2023-04-27T09:30:35.000Z" title="发表于 2023-04-27 17:30:35">2023-04-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/27/sqlserver-%E4%BB%8Ewins%E5%88%B0wins%E7%9A%84%E5%85%A8%E5%BA%93%E8%BF%81%E7%A7%BB/" title="sqlserver-从wins到wins的全库迁移">sqlserver-从wins到wins的全库迁移</a><time datetime="2023-04-27T09:30:21.000Z" title="发表于 2023-04-27 17:30:21">2023-04-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/26/oracle-expdp-full%E6%96%B9%E5%BC%8F-%E5%85%A8%E5%BA%93%E8%BF%81%E7%A7%BB/" title="oracle-expdp full方式-全库迁移">oracle-expdp full方式-全库迁移</a><time datetime="2023-04-26T09:29:55.000Z" title="发表于 2023-04-26 17:29:55">2023-04-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/26/wins-oracle11g-%E5%AE%89%E8%A3%85/" title="wins-oracle11g-安装">wins-oracle11g-安装</a><time datetime="2023-04-26T09:28:42.000Z" title="发表于 2023-04-26 17:28:42">2023-04-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By 小天</div><div class="footer_custom_text">欢迎来到我的博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
